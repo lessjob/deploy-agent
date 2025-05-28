@@ -22,3 +22,22 @@ rate_limit: 60
 go run deploy_agent.go config.yml
 ```
 
+### 3. 部署文件
+
+#### 请求头(header):
+- X-API-Key 授权请求头 需要和 config.yml 中的 api_key 一致
+#### 请求参数(body):
+- targetPath 文件部署目标路径 (如果目标已经存在会自动备份)
+- isAutoUnzip 是否自动解压 (仅支持zip 文件)
+- unzipPath 解压目标路径 (如果目标已经存在会自动备份)
+- file 文件
+```bash
+# curl示例
+curl -X POST \
+  -H "X-API-Key: 123456!" \
+  -F "targetPath=test/dist.zip" \
+  -F "isAutoUnzip=true" \
+  -F "unzipPath=test/dist/" \
+  -F "file=@~/Downloads/dist.zip" \
+  http://192.168.1.96:5002/deploy
+```
